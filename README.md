@@ -58,6 +58,20 @@ kubectl delete deployment nginx
 kubectl delete svc nginx
 ```
 
+# Part 2 - Multi Environment Cloud Setup with IaC - Best Practice
+Guide Used - (https://medium.com/@bhpuri/github-actions-series-10-multi-environment-deployment-on-azure-using-github-actions-e9fac4512d79)
+Use Case:
+- Use terraform to set up dev,test,prod "resources" in Azure using best practice
+
+Steps
+1. Create Service Principal
+2. Create Resource Group (management + dev RG)
+3. Configure Resource Group Permissions
+4. Configure OIDC Federated Credentials for Service Principal
+5. Setup Secrets in Github Actions
+6. Use Bootstrap-backend.sh Script to create storage account
+7. Run Infrastructure.yaml with Dev branch to create environment in Dev.
+
 # Debugging Notes
 Port forwarding - Nodeport
 - When using podman desktop and Kind the cluster is hosted in a VM/container inside the windows PC, when using nodeport, this is not yet exposed on the windows PC, port forwarding bridges the traffic from the container to the host.
