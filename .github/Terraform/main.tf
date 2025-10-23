@@ -23,7 +23,7 @@ provider "azurerm" {
     }
   }
   use_oidc = true
-  skip_provider_registration = true
+  resource_provider_registrations = []
 }
 
 data "azurerm_client_config" "ServicePrincipal" {
