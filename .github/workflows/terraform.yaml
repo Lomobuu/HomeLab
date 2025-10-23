@@ -22,6 +22,9 @@ permissions:
 env:
     location: westeurope
     environment: ${{ github.event.inputs.environment || 'Dev' }}
+    ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+    ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
 jobs:
   terraform:
@@ -42,13 +45,6 @@ jobs:
         # Install the latest version of Terraform CLI 
         - name: Setup Terraform
           uses: hashicorp/setup-terraform@v1
-
-        - name: Azure Login
-          uses: azure/login@v2
-          with:
-            client-id: ${{ secrets.AZURE_CLIENT_ID }}
-            tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-            subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
         # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
         # note, env lower is only becasue the branch is uppercase...
