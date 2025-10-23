@@ -12,7 +12,7 @@ terraform {
   }
   backend "azurerm" {
     resource_group_name  = "Homelab-management-RG"
-    storage_account_name = "tfstatehomelab"       # static name
+    storage_account_name = "tfstatehomelabfozzen"       # static name
     container_name       = "tfstate-${var.environment}"       # auto replaced
     key                  = "terraform.tfstate"
     use_oidc             = true
