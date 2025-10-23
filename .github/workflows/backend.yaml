@@ -1,14 +1,24 @@
 name: Bootstrap Terraform Backend
 
 permissions:
-  id-token: write # Require write permission to Fetch an OIDC token.
+  id-token: write
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment (dev, test, prod)'
+        required: true
+        type: choice
+        options:
+          - Dev
+          - Test
+          - Main
 
 jobs:
   bootstrap:
     runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
 
     steps:
       - name: Checkout repo
@@ -22,4 +32,4 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Run bootstrap script
-        run: bash .github/workflows/bootstrap-backend.sh
+        run: bash .github/workflows/bootstrap-backend.sh ${{ github.event.inputs.environment }}
