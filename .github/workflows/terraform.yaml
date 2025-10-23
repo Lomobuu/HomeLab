@@ -3,7 +3,7 @@ name: 'Terraform Deployment'
 on:
   push:
     branches:
-      - dev
+      - Dev
   workflow_dispatch:
     inputs:
       environment:
@@ -52,7 +52,14 @@ jobs:
 
         # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
         - name: Terraform Init
-          run: terraform init
+          run: |
+            terraform init \
+              -backend-config="resource_group_name=Homelab-management-RG" \
+              -backend-config="storage_account_name=tfstatehomelabfozzen" \
+              -backend-config="container_name=tfstate-${{ github.event.inputs.environment }}" \
+              -backend-config="key=terraform.tfstate" \
+              -backend-config="use_oidc=true"
+
 
         - name: Terraform Format Check
           run: terraform fmt -check
