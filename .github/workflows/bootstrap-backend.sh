@@ -6,7 +6,7 @@ ENV=$1  # dev, test, prod
 RESOURCE_GROUP="Homelab-management-RG"
 LOCATION="westeurope"
 STORAGE_ACCOUNT="tfstatehomelabfozzen"
-CONTAINER_NAME="tfstate-${ENV}"
+CONTAINER_NAME="tfstate-${ENV,,}"
 
 echo "Creating resource group..."
 az group create --name $RESOURCE_GROUP --location $LOCATION

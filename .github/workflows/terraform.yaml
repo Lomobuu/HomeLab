@@ -51,12 +51,14 @@ jobs:
             subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
         # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+        # note, env lower is only becasue the branch is uppercase...
         - name: Terraform Init
           run: |
+            ENV_LOWER=$(echo "$environment" | tr '[:upper:]' '[:lower:]')
             terraform init \
               -backend-config="resource_group_name=Homelab-management-RG" \
               -backend-config="storage_account_name=tfstatehomelabfozzen" \
-              -backend-config="container_name=tfstate-$environment" \
+              -backend-config="container_name=tfstate-$ENV_LOWER" \
               -backend-config="key=terraform.tfstate" \
               -backend-config="use_oidc=true"
 
