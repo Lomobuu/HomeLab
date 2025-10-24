@@ -10,13 +10,7 @@ terraform {
     }
     
   }
-  backend "azurerm" {
-    resource_group_name  = "Homelab-management-RG"
-    storage_account_name = "tfstatehomelabfozzen"       # static name
-    container_name       = "tfstate-${var.environment}"       # auto replaced
-    key                  = "terraform.tfstate"
-    use_oidc             = true
-  }
+backend "azurerm" {}
 }
 
 provider "azurerm" {
@@ -29,7 +23,7 @@ provider "azurerm" {
     }
   }
   use_oidc = true
-  skip_provider_registration = true
+  resource_provider_registrations = "none"
 }
 
 data "azurerm_client_config" "ServicePrincipal" {

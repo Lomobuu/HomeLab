@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "strg" {
-  name                     = "homelabstrg${var.environment}"
+  name                     = lower("homelabstrg${var.environment}")
   resource_group_name      = data.azurerm_resource_group.rg.name
   location                 = data.azurerm_resource_group.rg.location
   account_tier             = "Standard"
